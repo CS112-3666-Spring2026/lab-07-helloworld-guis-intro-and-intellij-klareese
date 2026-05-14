@@ -1,49 +1,69 @@
-package edu.miracosta.cs112.lab07;//package name here depending on your IDE
+package edu.miracosta.cs112.lab07;
 
-import javafx.application.Application;  //abstract class used for JavaFX GUI's
-import javafx.stage.Stage;              //class for GUI window
-import javafx.scene.Scene;              //class for specific view in GUI window
-import javafx.scene.layout.VBox;        //class for layout pane, organized top-to-bottom
-import javafx.scene.control.Label;      //class for label component
-import javafx.scene.control.Button;     //class for button component
-import javafx.event.EventHandler;       //interface for handling events
-import javafx.event.ActionEvent;        //class for type of event for action (like button or key pressed)
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
 
-public class HelloApplication extends Application implements EventHandler<ActionEvent>  { //inheriting core functionality + this class will handle events
+public class HelloApplication extends Application implements EventHandler<ActionEvent> {
+
     /*** GUI COMPONENTS ***/
     private Button button;
+    int count = 0;
+
+    private Label message;
+
+    /*** OTHER VARIABLES ***/
+
 
     /*** DRIVER main ***/
     public static void main(String[] args) {
-        launch(args); //method from Application class, must be called to setup javafx application
+        launch(args);
     }
 
     /*** OVERRIDDEN Application METHODS ***/
     @Override
-    public void start(Stage primaryStage) throws Exception{ //Application automatically calls this method to run (our) main javafx code. passes in primary stage (main window)
-        //SETUP COMPONENTS
-        Label message = new Label("Hi, User!");
-        button = new Button("Click me"); //or can set text using setText method separately
-        button.setOnAction(this); //who the event handler is (which object/class should handle the event)
+    public void start(Stage primaryStage) {
 
-        //ADD COMPONENTS
-        VBox layout = new VBox(); //simple layout, components are stacked on top of each other in added order
+        // SETUP COMPONENTS
+        message = new Label("Hi, User!");
+
+        button = new Button("Click me");
+        button.setOnAction(this);
+
+        // ADD COMPONENTS
+        VBox layout = new VBox();
+
         layout.getChildren().add(message);
         layout.getChildren().add(button);
 
-        //SETUP SCENE AND SHOW
-        Scene scene = new Scene(layout, 300, 250); //layout, dimensions of window
+        // SETUP SCENE
+        Scene scene = new Scene(layout, 300, 250);
+
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Hello World"); //setting title of main window
+
+        // Change to your actual group number and name
+        primaryStage.setTitle("Group 1 - Klareese");
+
         primaryStage.show();
     }
 
     /*** OVERRIDDEN EventHandler METHODS ***/
     @Override
-    public void handle(ActionEvent actionEvent) { //generic method used to handle when events occur (like handle button click)
-        //good practice to identify source, in case you have multiple event types/sources
+    public void handle(ActionEvent actionEvent) {
+
         if(actionEvent.getSource() == button) {
-            System.out.println("Hello, JavaFX!");
+
+            count++;
+
+            message.setText("Hi #" + count + ", User!");
+
+            System.out.println("count = "+ count);
+            System.out.println("Hello CS112!");
         }
     }
 }
